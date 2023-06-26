@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Yeni eklenen satır */
+            min-height: 100vh; /* Yeni eklenen satır */
+            background: linear-gradient(45deg, #FFC300, #FF5733, #C70039, #900C3F);
+            background-size: 400% 400%;
+            animation: gradientAnimation 10s ease infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .genel {
+            width: 400px;
+            margin: 0 auto;
+        }
+
+        #formElements {
+            background-color: transparent;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+        }
+
+        input.çek:checked + span {
+            background-color: green;
+        }
+
+        .paragraf {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 0.8); /* Yeni eklenen satır */
+        }
+
+        .paragraf span {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+        }
+
+        .paragraf span:checked {
+            background-color: green;
+        }
+
+        .paragraf button {
+            width: 30px;
+            height: 30px;
+            border: none;
+            background-color: #f44336;
+            color: #fff;
+            border-radius: 4px;
+            margin-right: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .paragraf button:hover {
+            background-color: #e53935;
+            color: #fff;
+        }
+
+        #ekleme:hover {
+            background-color: #4CAF50;
+            color: #fff;
+        }
+
+        #del:hover {
+            background-color: #f44336;
+            color: #fff;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="genel">
+        <input type="text" placeholder="birşeyler giriniz" id="input">
+        <button id="ekleme" type="submit">ekleme</button> <button id="del">silme</button>
+
+        <div id="form">
+            <div id="formElements">
+
+            </div>
+        </div>
+    </div>
+    <script>
+        let search = document.getElementById("input");
+        let ekleme = document.getElementById("ekleme");
+        let formElements = document.getElementById("formElements");
+        let del = document.getElementById("del");
+    
+        ekleme.addEventListener("click", function () {
+            createParagraf(search.value);
+            search.value = "";
+        });
+    
+        function createParagraf(text) {
+            let paragraf = document.createElement("p");
+            paragraf.classList.add("paragraf");
+            formElements.appendChild(paragraf);
+            paragraf.innerHTML = text;
+    
+            let sil = document.createElement("button");
+            let çekbox = document.createElement("input");
+    
+            sil.classList.add("sil");
+            paragraf.appendChild(sil);
+    
+            çekbox.type = "checkbox";
+            çekbox.classList.add("çek");
+            paragraf.appendChild(çekbox);
+    
+            sil.style.width = "30px";
+            sil.style.height = "30px";
+            sil.innerHTML = "sil";
+            sil.style.margin = "20px";
+    
+            // Paragrafı silme işlemi
+            del.addEventListener('click', function () {
+                formElements.removeChild(paragraf);
+            });
+    
+            sil.addEventListener("click", function () {
+                formElements.removeChild(paragraf);
+            });
+        }
+    </script>
+    
+    
+</body>    
